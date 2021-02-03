@@ -1,9 +1,17 @@
 const fastify = require('fastify')({
   logger: true
 })
+const AutoLoad = require('fastify-autoload')
+const formBody = require('fastify-formbody')
+const cors = require('fastify-cors')
+const path = require('path')
 
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' }
+fastify.register(formBody)
+fastify.register(AutoLoad, {
+  dir: path.join(__dirname, 'routes')
+})
+fastify.register(cors, {
+  origin: true
 })
 
 const start = async () => {

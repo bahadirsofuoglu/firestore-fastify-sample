@@ -1,39 +1,38 @@
 const db = require('../db')
 // example controller console.log(x.id)   tasks.push({ id: `${x.id}`, ...x.data() })
-exports.getTask = async _ => {
+exports.getTasks = async (req, res) => {
   const dbResponse = await db.collection('test').get()
   const tasks = []
   dbResponse.forEach(x => tasks.push({ id: `${x.id}`, ...x.data() }))
 
-  return tasks
+  res.send(tasks)
 }
 
-exports.addTask = async (_, req) => {
-  const data = req
+exports.addTask = async (req, res) => {
+  const data = req.body
   await db
     .collection('test')
     .doc()
     .set(data)
-
-  return data
+  res.send(data)
 }
 
-exports.updateTask = async (_, req) => {
-  const id = req.id
-  delete req.id
-  const data = req
+exports.updateTask = async (req, res) => {
+  const id = req.body.id
+  delete req.body.id
+  const data = req.body
   await db
     .collection('test')
     .doc(id)
     .update(data)
 
-  return data
+  res.send(data)
 }
-exports.deleteTask = async (_, req) => {
-  const id = req.id
+exports.deleteTask = async (req, res) => {
+  const id = req.body.id
   await db
     .collection('test')
     .doc(id)
     .delete()
-  return true
+  res.send(true)
 }
