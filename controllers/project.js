@@ -3,6 +3,7 @@ const db = require('../db')
 exports.getProjects = async (req, res) => {
   const dbResponse = await db.collection('projects').get()
   const projects = []
+
   dbResponse.forEach(x => projects.push({ id: `${x.id}`, ...x.data() }))
 
   res.send(projects)
