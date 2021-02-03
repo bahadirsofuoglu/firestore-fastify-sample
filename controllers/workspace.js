@@ -7,6 +7,18 @@ exports.getWorkspaces = async (req, res) => {
 
   res.send(workspaces)
 }
+exports.getWorkspacesWithProjects = async (req, res) => {
+  const dbResponse = await db
+    .collection('workspaces')
+    .doc('z0IYAx24GlWuRyoJCVLq')
+    .collection('projects')
+    .get()
+  const workspaces = []
+  console.log(dbResponse)
+  dbResponse.forEach(x => workspaces.push({ id: `${x.id}`, ...x.data() }))
+
+  res.send(workspaces)
+}
 
 exports.addWorkspace = async (req, res) => {
   const data = req.body

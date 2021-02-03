@@ -1,7 +1,7 @@
 const project = require('../controllers/project')
 
 module.exports = async function (fastify) {
-  fastify.get('/projects', project.getProjects)
+  fastify.get('/projects', project.getProjectsWithId)
   /*  fastify.get('/projects/:id', project.getInsurancePolicy) */
   fastify.post('/projects', project.addProject)
   fastify.put('/projects/:id', project.updateProject)
