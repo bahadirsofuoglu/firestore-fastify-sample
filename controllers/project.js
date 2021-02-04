@@ -1,4 +1,6 @@
-const db = require('../db')
+const firebase = require('../db')
+const db = firebase.firestore()
+
 // example controller console.log(x.id)   projects.push({ id: `${x.id}`, ...x.data() })
 exports.getProjectsWithId = async (req, res) => {
   const dbResponse = await db
@@ -25,13 +27,13 @@ exports.addProject = async (req, res) => {
 }
 
 exports.updateProject = async (req, res) => {
-  const projectId = req.params
+  const { id } = req.params
   const data = req.body
   await db
     .collection('workspaces')
     .doc(data.workspaceId)
     .collection('projects')
-    .doc(projectId)
+    .doc(id)
     .update(data)
 
   res.send(data)

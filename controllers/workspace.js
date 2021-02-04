@@ -1,4 +1,5 @@
-const db = require('../db')
+const firebase = require('../db')
+const db = firebase.firestore()
 // example controller console.log(x.id)   workspaces.push({ id: `${x.id}`, ...x.data() })
 exports.getWorkspaces = async (req, res) => {
   const dbResponse = await db.collection('workspaces').get()

@@ -20,6 +20,7 @@ const firebaseConfig = {
   appId: APP_ID,
   measurementId: MEASUREMENT_ID
 }
+
 const firebase = Firebase.initializeApp(firebaseConfig)
 
-module.exports = firebase.firestore()
+module.exports = firebase
