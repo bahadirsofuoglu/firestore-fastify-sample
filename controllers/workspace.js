@@ -13,10 +13,14 @@ exports.getWorkspacesWithProjects = async (req, res) => {
     .doc('z0IYAx24GlWuRyoJCVLq')
     .collection('projects')
     .get()
+  const dbResponse1 = await db.collection('workspaces').get()
+  const projects = []
   const workspaces = []
-  console.log(dbResponse)
-  dbResponse.forEach(x => workspaces.push({ id: `${x.id}`, ...x.data() }))
-
+  await dbResponse1.forEach(x =>
+    workspaces.push({ id: `${x.id}`, ...x.data() })
+  )
+  dbResponse.forEach(x => projects.push({ id: `${x.id}`, ...x.data() }))
+  workspaces.push(projects)
   res.send(workspaces)
 }
 
@@ -30,18 +34,17 @@ exports.addWorkspace = async (req, res) => {
 }
 
 exports.updateWorkspace = async (req, res) => {
-  const id = req.body.id
-  delete req.body.id
+  const id = req.params
   const data = req.body
   await db
     .collection('workspaces')
     .doc(id)
-    .update(data)
+    .update({ capital: true })
 
   res.send(data)
 }
 exports.deleteWorkspace = async (req, res) => {
-  const id = req.body.id
+  const id = req.params
   await db
     .collection('workspaces')
     .doc(id)

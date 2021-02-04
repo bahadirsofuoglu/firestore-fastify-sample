@@ -6,8 +6,9 @@ exports.getProjectsWithId = async (req, res) => {
     .doc('z0IYAx24GlWuRyoJCVLq')
     .collection('projects')
     .get()
+  const dbResponse1 = await db.collection('workspaces').get()
   const projects = []
-  console.log(dbResponse)
+  dbResponse1.forEach(x => projects.push({ id: `${x.id}`, ...x.data() }))
   dbResponse.forEach(x => projects.push({ id: `${x.id}`, ...x.data() }))
 
   res.send(projects)

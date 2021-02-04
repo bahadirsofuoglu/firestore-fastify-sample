@@ -18,8 +18,7 @@ exports.addTask = async (req, res) => {
 }
 
 exports.updateTask = async (req, res) => {
-  const id = req.body.id
-  delete req.body.id
+  const id = req.params
   const data = req.body
   await db
     .collection('test')
@@ -29,7 +28,7 @@ exports.updateTask = async (req, res) => {
   res.send(data)
 }
 exports.deleteTask = async (req, res) => {
-  const id = req.body.id
+  const id = req.params
   await db
     .collection('test')
     .doc(id)
