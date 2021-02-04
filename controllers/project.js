@@ -26,20 +26,22 @@ exports.addProject = async (req, res) => {
 
 exports.updateProject = async (req, res) => {
   const projectId = req.params
-
   const data = req.body
   await db
     .collection('workspaces')
-    .doc(projectId)
-    .collection('projects')
     .doc(data.workspaceId)
+    .collection('projects')
+    .doc(projectId)
     .update(data)
 
   res.send(data)
 }
 exports.deleteProject = async (req, res) => {
-  const id = req.body.id
+  const { id } = req.params
+  const workspaceId = req.body.workspaceId
   await db
+    .collection('workspaces')
+    .doc(workspaceId)
     .collection('projects')
     .doc(id)
     .delete()

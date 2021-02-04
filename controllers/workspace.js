@@ -34,17 +34,17 @@ exports.addWorkspace = async (req, res) => {
 }
 
 exports.updateWorkspace = async (req, res) => {
-  const id = req.params
+  const { id } = req.params
   const data = req.body
   await db
     .collection('workspaces')
     .doc(id)
-    .update({ capital: true })
+    .update(data)
 
   res.send(data)
 }
 exports.deleteWorkspace = async (req, res) => {
-  const id = req.params
+  const { id } = req.params
   await db
     .collection('workspaces')
     .doc(id)
